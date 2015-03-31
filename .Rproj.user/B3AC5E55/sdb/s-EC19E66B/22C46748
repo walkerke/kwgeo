@@ -1,0 +1,18 @@
+{
+    "contents" : "### r2cartodb: a function to import data to your CartoDB account.\n\n# Set your working directory before calling the function.\n# Also, the function depends on the rgdal and httr packages, and requires that you have Rtools installed\n# (and that you have Rtools in your PATH if you are on Windows) if you want to upload spatial\n# data frames.\n\nlibrary(rgdal)\nlibrary(httr)\n\n# Advisable to make the layer name different from your imported data, if applicable.\n\nr2cartodb <- function(obj, layer_name, account_id, api_key) {\n\n  dir <- getwd()\n\n  cartodb_url <- paste0(\"https://\",\n                        account_id,\n                        \".cartodb.com/api/v1/imports/?api_key=\",\n                        api_key)\n\n  if (class(obj) == \"data.frame\") {\n\n    # Will import a basic table or a spatial table if it can detect long/lat columns.\n    # The function first writes a CSV then uploads it.\n\n    csv_name <- paste0(layer_name, \".csv\")\n\n    write.csv(obj, csv_name)\n\n    POST(cartodb_url,\n         encode = \"multipart\",\n         body = list(file = upload_file(csv_name)),\n         verbose())\n\n  } else if (grep(\"Spatial\", class(obj)) == 1) {\n\n    # Assuming here that you're using a Spatial*DataFrame, which can be written to a shapefile.  The\n    # function will first write to a shapefile and then upload.\n\n    writeOGR(obj = obj,\n             dsn = dir,\n             layer = layer_name,\n             driver = \"ESRI Shapefile\",\n             overwrite_layer = TRUE)\n\n    pattern = paste0(layer_name, \"\\\\.*\")\n\n    files <- list.files(pattern = pattern)\n\n    zip_name <- paste0(layer_name, \".zip\")\n\n    zip(zipfile = zip_name, files = files)\n\n    POST(cartodb_url,\n         encode = \"multipart\",\n         body = list(file = upload_file(zip_name)),\n         verbose())\n\n  } else {\n\n    stop(\"The r2cartodb function requires a data frame or spatial data frame\")\n\n  }\n}\n",
+    "created" : 1427806561330.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2337269755",
+    "id" : "22C46748",
+    "lastKnownWriteTime" : 1427806593,
+    "path" : "~/GitHub/kwgeo/R/r2cartodb.R",
+    "project_path" : "R/r2cartodb.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

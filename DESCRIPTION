@@ -1,0 +1,16 @@
+Package: kwgeo
+Type: Package
+Title: Miscellaneous functions for manipulating and visualizing geographic data
+Version: 0.1
+Date: 2015-03-31
+Author: person("Kyle", "Walker", "kew331@gmail.com", c("aut", "cre"))
+Description: More to come here...
+Depends:
+  WDI,
+  rgdal,
+  httr,
+  sp,
+  leaflet,
+  maptools
+License: MIT
+LazyData: TRUE
