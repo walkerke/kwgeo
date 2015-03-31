@@ -1,5 +1,6 @@
-library(sp)
-library(maptools)
+#' Function to convert a table of XY coordinates to spatial lines
+#' @export
+#' @import sp maptools
 
 points_to_line <- function(data, long, lat, id_field = NULL, sort_field = NULL) {
 
