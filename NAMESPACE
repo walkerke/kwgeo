@@ -2,6 +2,7 @@
 
 export(points_to_line)
 export(r2cartodb)
+export(transform_xy)
 export(wdi_leaflet)
 import(WDI)
 import(httr)

@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Helper functions to perform common geospatial tasks\n#'\n#' @export\n#' @import rgdal\n#' \n\n\n# Quick transform of spatial objects to WGS84; useful for Leaflet mapping\n\ntransform_xy <- function(sp_object) {\n  sp_xy <- spTransform(sp_object, CRS(\"+proj=longlat +datum=WGS84\"))\n  sp_xy\n}\n\n\n",
+    "created" : 1428535361037.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2091788448",
+    "id" : "8D61C3F0",
+    "lastKnownWriteTime" : 1428452407,
+    "path" : "~/GitHub/kwgeo/R/helpers.R",
+    "project_path" : "R/helpers.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
