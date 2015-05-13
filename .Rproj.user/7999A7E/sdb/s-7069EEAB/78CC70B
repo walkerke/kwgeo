@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Function to create a Leaflet interactive map in RStudio from a World Bank indicator.\n#' @export\n#' @import WDI rgdal sp leaflet\n\n\nwdi_leaflet <- function(indicator, indicator_alias = \"Value\", year = 2012, classes = 5, colors = \"Blues\") {\n\n  url <- \"http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip\"\n\n  tmp <- tempdir()\n\n  file <- basename(url)\n\n  download.file(url, file)\n\n  unzip(file, exdir = tmp)\n\n  countries <- readOGR(dsn = tmp,\n                       layer = \"ne_50m_admin_0_countries\",\n                       encoding = \"UTF-8\",\n                       verbose = FALSE)\n\n\n  dat <- WDI(country = \"all\",\n             indicator = indicator,\n             start = year,\n             end = year)\n\n  dat[[indicator]] <- round(dat[[indicator]], 1)\n\n\n\n  countries2 <- sp::merge(countries,\n                      dat,\n                      by.x = \"iso_a2\",\n                      by.y = \"iso2c\",\n                      sort = FALSE)\n\n  pal <- colorQuantile(colors, NULL, n = classes)\n\n  labs <- quantile_labels(countries2[[indicator]], classes)\n\n  country_popup <- paste0(\"<strong>Country: </strong>\",\n                          countries2$country,\n                          \"<br><strong>\",\n                          indicator_alias,\n                          \", \",\n                          as.character(year),\n                          \": </strong>\",\n                          countries2[[indicator]])\n\n  stamen_tiles <- \"http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png\"\n\n  stamen_attribution <- 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>. Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://www.openstreetmap.org/copyright\">ODbL</a>.'\n\n  leaflet(data = countries2) %>%\n    addTiles(urlTemplate = stamen_tiles,\n             attribution = stamen_attribution) %>%\n    setView(0, 0, zoom = 2) %>%\n    addPolygons(fillColor = ~pal(countries2[[indicator]]),\n                fillOpacity = 0.8,\n                color = \"#BDBDC3\",\n                weight = 1,\n                popup = country_popup) %>%\n    addLegend(colors = c(RColorBrewer::brewer.pal(classes, colors), \"#808080\"),\n              position = \"bottomright\",\n              bins = classes,\n              labels = labs,\n              title = paste0(indicator_alias, \", \", as.character(year))\n    )\n\n}\n\n## Example call\n\n## wdi_leaflet(indicator = \"SP.RUR.TOTL.ZS\", indicator_alias = \"Percent rural\", colors = \"PuBu\")\n",
+    "created" : 1431526784472.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3102898030",
+    "id" : "78CC70B",
+    "lastKnownWriteTime" : 1431529782,
+    "path" : "~/GitHub/kwgeo/R/wdi_leaflet.R",
+    "project_path" : "R/wdi_leaflet.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

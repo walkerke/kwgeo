@@ -56,7 +56,7 @@ wdi_leaflet <- function(indicator, indicator_alias = "Value", year = 2012, class
   leaflet(data = countries2) %>%
     addTiles(urlTemplate = stamen_tiles,
              attribution = stamen_attribution) %>%
-    setView(0, 0, zoom = 3) %>%
+    setView(0, 0, zoom = 2) %>%
     addPolygons(fillColor = ~pal(countries2[[indicator]]),
                 fillOpacity = 0.8,
                 color = "#BDBDC3",
