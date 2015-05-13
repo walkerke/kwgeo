@@ -1,0 +1,18 @@
+{
+    "contents" : "#' importFrom magrittr %>%\n#' export %>%\n#'\n#'\nNULL\n",
+    "created" : 1428576225020.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "510445555",
+    "id" : "8308C0ED",
+    "lastKnownWriteTime" : 1428576320,
+    "path" : "~/GitHub/kwgeo/R/package.R",
+    "project_path" : "R/package.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

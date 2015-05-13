@@ -1,0 +1,18 @@
+{
+    "contents" : "#' Functions to replicate the ArcGIS analysis toolbox\n#'\n#'\n#'\n#'\n#'\n",
+    "created" : 1428575871536.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1747547334",
+    "id" : "3CB54186",
+    "lastKnownWriteTime" : 1428576320,
+    "path" : "~/GitHub/kwgeo/R/analysis.R",
+    "project_path" : "R/analysis.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

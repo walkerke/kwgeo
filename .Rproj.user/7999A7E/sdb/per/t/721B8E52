@@ -1,0 +1,17 @@
+{
+    "contents" : "#' Helper functions to perform common geospatial tasks\n#'\n#' @export\n#' @import rgdal\n#'\n\n\n# Quick transform of spatial objects to WGS84; useful for Leaflet mapping\n\ntransform_xy <- function(sp_object) {\n  sp_xy <- spTransform(sp_object, CRS(\"+proj=longlat +datum=WGS84\"))\n  sp_xy\n}\n\n# Create nice quantile labels for Leaflet mapping (which defaults to percentiles in the legend)\n\nquantile_labels <- function(vec, n) {\n  qs <- round(quantile(vec, seq(0, 1, 1/n), na.rm = TRUE), 1)\n  len <- length(qs) - 1\n  qlabs <- c()\n  for (i in 1:len) {\n    j <- i + 1\n    v <- paste0(as.character(qs[i]), \"-\", as.character(qs[j]))\n    qlabs <- c(qlabs, v)\n  }\n  final_labs <- c(qlabs, \"Data unavailable\")\n  final_labs\n}\n\n\n\n",
+    "created" : 1431527327336.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2028419770",
+    "id" : "721B8E52",
+    "lastKnownWriteTime" : 1431527360,
+    "path" : "~/GitHub/kwgeo/R/helpers.R",
+    "project_path" : "R/helpers.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

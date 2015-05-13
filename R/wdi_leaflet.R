@@ -30,13 +30,15 @@ wdi_leaflet <- function(indicator, indicator_alias = "Value", year = 2012, class
 
 
 
-  countries2 <- merge(countries,
+  countries2 <- sp::merge(countries,
                       dat,
                       by.x = "iso_a2",
                       by.y = "iso2c",
                       sort = FALSE)
 
   pal <- colorQuantile(colors, NULL, n = classes)
+
+  labs <- quantile_labels(countries2[[indicator]], classes)
 
   country_popup <- paste0("<strong>Country: </strong>",
                           countries2$country,
@@ -59,10 +61,16 @@ wdi_leaflet <- function(indicator, indicator_alias = "Value", year = 2012, class
                 fillOpacity = 0.8,
                 color = "#BDBDC3",
                 weight = 1,
-                popup = country_popup)
+                popup = country_popup) %>%
+    addLegend(colors = c(RColorBrewer::brewer.pal(classes, colors), "#808080"),
+              position = "bottomright",
+              bins = classes,
+              labels = labs,
+              title = paste0(indicator_alias, ", ", as.character(year))
+    )
 
 }
 
 ## Example call
 
-## wdi_leaflet(indicator = "SP.RUR.TOTL.ZS", indicator_alias = "Percent rural", colors = "OrRd")
+## wdi_leaflet(indicator = "SP.RUR.TOTL.ZS", indicator_alias = "Percent rural", colors = "PuBu")
