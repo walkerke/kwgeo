@@ -30,18 +30,14 @@ wdi_leaflet <- function(indicator, indicator_alias = "Value", year = 2012, class
 
 
 
-  countries2 <- sp::merge(countries,
-                      dat,
-                      by.x = "iso_a2",
-                      by.y = "iso2c",
-                      sort = FALSE)
+  countries2 <- geo_join(countries, dat,"iso_a2", "iso2c")
 
   pal <- colorQuantile(colors, NULL, n = classes)
 
   labs <- quantile_labels(countries2[[indicator]], classes)
 
   country_popup <- paste0("<strong>Country: </strong>",
-                          countries2$country,
+                          countries2$name_long,
                           "<br><strong>",
                           indicator_alias,
                           ", ",

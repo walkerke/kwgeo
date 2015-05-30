@@ -1,5 +1,0 @@
-#' importFrom magrittr %>%
-#' export %>%
-#'
-#'
-NULL
